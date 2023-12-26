@@ -19,26 +19,27 @@ pipeline {
             }
         }
 
-        // stage('Build and Test') {
-        //     steps {
-        //         // Install Node.js and dependencies
-        //         withEnv(["PATH+NODEJS=${tool 'NodeJS ' + NODEJS_VERSION}/bin"]) {
-        //             sh 'npm install'
-        //             sh 'npm test'
-        //         }
-        //     }
-        // }
+        stage('Build and Test') {
+            steps {
+                // Install Node.js and dependencies
+                withEnv(["PATH+NODEJS=${tool 'NodeJS ' + NODEJS_VERSION}/bin"]) {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
 
-        // stage('SonarQube Scan') {
-        //     steps {
-        //         script {
-        //             withSonarQubeEnv('SonarQube') {
-        //                 sh 'npm install -g sonarqube-scanner'
-        //                 sh 'sonar-scanner'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('SonarQube Scan') {
+            steps {
+                script {
+                    withSonarQubeEnv('sonarQube-sample') {
+                        // sh 'npm install -g sonarqube-scanner'
+                        sh 'sonar-scanner'
+                        
+                    }
+                }
+            }
+        }
 
         // stage('Save Artifact to Nexus') {
         //     steps {
