@@ -11,7 +11,7 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
-        sonar "SonarQube-Scanner-Sample"
+        hudson.plugins.sonar.SonarRunnerInstallation "SonarQube-Scanner-Sample"
     }
 
     stages {
