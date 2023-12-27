@@ -9,6 +9,9 @@ pipeline {
         DOCKER_REGISTRY = 'your-docker-registry'
         K8S_NAMESPACE = 'your-kubernetes-namespace'
     }
+    tools{
+        nodejs "NodeJsInstallation"
+    }
 
     stages {
         stage('Checkout') {
