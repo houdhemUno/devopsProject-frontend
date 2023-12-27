@@ -11,7 +11,7 @@ pipeline {
         nodejs "NodeJsInstallation"
     }
 
-    // stages {
+    stages {
     //     stage('Checkout') {
     //         steps {
     //             // Checkout source code
