@@ -55,12 +55,9 @@ pipeline {
                 script {
                     // Build Docker image
                     // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
-                    sh 'cd..'
-                    sh 'cd..'
-                    sh 'cd..'
-                    sh 'cd..'
-                    sh 'cd..'
-                    sh 'cd..'
+                    sh 'cd /'
+                    sh 'cd ~'
+
                     
                     sh 'docker build /var/jenkins_home/workspace/frontend-sample-pipeline@tmp/'
 
