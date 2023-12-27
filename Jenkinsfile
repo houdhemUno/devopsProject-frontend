@@ -56,6 +56,7 @@ pipeline {
                     // Build Docker image
                     // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
                     sh 'cd /'
+                    sh 'ls'
                     // sh 'cd ~'
 
                     
