@@ -42,10 +42,11 @@ pipeline {
         // }
 
         stage('SonarQube Analysis') {
-            def scannerHome = tool 'sonarqubeScanner';
-            withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner"
-            }
+            steps{
+                def scannerHome = tool 'sonarqubeScanner';
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
         }
 
         // stage('Save Artifact to Nexus') {
