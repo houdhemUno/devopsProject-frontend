@@ -22,13 +22,9 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                // dir('devopsProject-frontend'){
-                    sh 'rm -rf /var/jenkins_home/workspace/frontend-sample-pipeline/node_modules'
                     sh 'npm install'
-
-                    // sh 'npm build'
+                    sh 'npm build'
                     sh 'ls'
-                // }
             }
         }
 
@@ -48,7 +44,7 @@ pipeline {
         stage('Save Artifact to Nexus') {
             steps {
                 script {
-                    sh 'tar -czf frontend-artifact.tgz build/*'
+                    sh 'tar -czf frontend-artifact.tgz dist/*'
                     sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz http://iac-nexus-1:8081/frontend-artifact.tgz"
                 }
             }
