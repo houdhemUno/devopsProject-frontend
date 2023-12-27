@@ -24,20 +24,10 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                    sh 'npm --v'
+                sh 'npm install'
+                sh 'npm build'
             }
         }
-
-        // stage('SonarQube Scan') {
-        //     steps {
-        //         script {
-        //             withSonarQubeEnv('sonarQube-sample') {
-        //                 // sh 'npm install -g sonarqube-scanner'
-        //                 sh 'sonar-scanner'
-        //             }
-        //         }
-        //     }
-        // }
 
         stage('SonarQube Analysis') {
             steps{
@@ -52,15 +42,14 @@ pipeline {
             }
         }
 
-        // stage('Save Artifact to Nexus') {
-        //     steps {
-        //         script {
-        //             // Assuming your backend has a build script or you can create a tarball
-        //             sh 'tar -czf backend-artifact.tgz backend/*'
-        //             sh "curl -v --user username:password --upload-file backend-artifact.tgz ${NEXUS_REPO}/backend-artifact-${BUILD_NUMBER}.tgz"
-        //         }
-        //     }
-        // }
+        stage('Save Artifact to Nexus') {
+            steps {
+                script {
+                    sh 'tar -czf frontend-artifact.tgz build/*'
+                    sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz http://iac-nexus-1:8081/frontend-artifact.tgz"
+                }
+            }
+        }
 
         // stage('Build and Push Docker Image') {
         //     steps {
