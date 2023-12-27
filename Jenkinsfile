@@ -23,8 +23,8 @@ pipeline {
         stage('Build and Test') {
             steps {
                 // dir('devopsProject-frontend'){
-                    // sh 'npm install'
-                    // sh 'npm build'
+                    sh 'npm install'
+                    sh 'npm build'
                     sh 'ls'
                 // }
             }
