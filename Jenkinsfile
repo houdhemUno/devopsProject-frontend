@@ -11,6 +11,7 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
+        sonarqubeScanner "SonarQube-Scanner-Sample"
     }
 
     stages {
@@ -28,15 +29,22 @@ pipeline {
             }
         }
 
-        stage('SonarQube Scan') {
-            steps {
-                script {
-                    withSonarQubeEnv('sonarQube-sample') {
-                        // sh 'npm install -g sonarqube-scanner'
-                        sh 'sonar-scanner'
+        // stage('SonarQube Scan') {
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('sonarQube-sample') {
+        //                 // sh 'npm install -g sonarqube-scanner'
+        //                 sh 'sonar-scanner'
                         
-                    }
-                }
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'sonarqubeScanner';
+            withSonarQubeEnv() {
+              sh "${scannerHome}/bin/sonar-scanner"
             }
         }
 
