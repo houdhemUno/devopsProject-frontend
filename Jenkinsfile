@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh 'sudo docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
+                    sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
                     sh 'ls'
                     // sh 'cd ~'
                     
