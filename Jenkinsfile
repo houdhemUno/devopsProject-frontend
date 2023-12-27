@@ -14,6 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                 sh 'docker build '
                 // Checkout source code
                 sh 'cd /var/jenkins_home/workspace'
                 checkout scm
