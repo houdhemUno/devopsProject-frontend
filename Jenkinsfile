@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     sh 'tar -czf frontend-artifact.tgz dist/*'
-                    sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
+                    sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz -H "Content-Type: application/octet-stream" http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
                 }
             }
         }
