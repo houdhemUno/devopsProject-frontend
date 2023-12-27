@@ -11,7 +11,6 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
-        hudson.plugins.sonar.SonarRunnerInstallation
     }
 
     stages {
@@ -43,7 +42,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 script {
-                    def scannerHome = tool 'sonar';
+                    def scannerHome = tool 'SonarQube-Scanner-Sample';
                     withSonarQubeEnv(sonarqubeScanner) {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
