@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         // Define environment variables here
-        NODEJS_VERSION = '14'
-        SONAR_PROJECT_KEY = 'your-sonar-project-key'
         NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
         DOCKER_REGISTRY = 'your-docker-registry'
         K8S_NAMESPACE = 'your-kubernetes-namespace'
@@ -24,8 +22,10 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                sh 'npm install'
-                sh 'npm build'
+                dir('devopsProject-frontend'){
+                    sh 'npm install'
+                    sh 'npm build'
+                }
             }
         }
 
