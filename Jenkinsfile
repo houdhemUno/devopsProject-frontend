@@ -54,13 +54,11 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
-                    sh 'cd ../../../..'
+                    sh 'sudo docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
                     sh 'ls'
                     // sh 'cd ~'
-
                     
-                    sh 'docker build /var/jenkins_home/workspace/frontend-sample-pipeline@tmp/'
+                    // sh 'docker build /var/jenkins_home/workspace/frontend-sample-pipeline@tmp/'
 
                     // Push Docker image to registry
                     sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
