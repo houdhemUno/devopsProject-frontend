@@ -54,7 +54,8 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
+                    // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
+                    sh 'docker build -t testImage:tag .'
 
                     // Push Docker image to registry
                     sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
