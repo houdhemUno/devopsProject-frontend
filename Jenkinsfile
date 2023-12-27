@@ -25,7 +25,6 @@ pipeline {
         stage('Build and Test') {
             steps {
                     sh 'npm --v'
-                }
             }
         }
 
