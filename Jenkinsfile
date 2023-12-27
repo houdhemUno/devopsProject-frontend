@@ -55,8 +55,8 @@ pipeline {
                 script {
                     // Build Docker image
                     // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
-                    sh 'sudo'
-                    sh 'docker build -t testImage:tag .'
+                    
+                    sh 'docker build '
 
                     // Push Docker image to registry
                     sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
