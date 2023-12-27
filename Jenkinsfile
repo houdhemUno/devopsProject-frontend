@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    docker{
+        
+    }
+
     environment {
         // Define environment variables here
         NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
@@ -45,7 +49,7 @@ pipeline {
             steps {
                 script {
                     sh 'tar -czf frontend-artifact.tgz dist/*'
-                    sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
+                    sh "curl -v --user admin:51b5b124-b893-427d-a631-96e00804a386 --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
                 }
             }
         }
@@ -54,10 +58,10 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh 'docker build -t $DOCKER_REGISTRY/your-node-app:${1} ./frontend'
+                    sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
 
                     // Push Docker image to registry
-                    sh 'docker push $DOCKER_REGISTRY/your-node-app:${1}'
+                    sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
                 }
             }
         }
