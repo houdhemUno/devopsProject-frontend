@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    docker{
-        
-    }
-
     environment {
         // Define environment variables here
         NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
