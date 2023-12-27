@@ -44,7 +44,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQube-Scanner-Sample'; 
                 }
-                withSonarQubeEnv(sonarqubeScanner) {
+                withSonarQubeEnv() {
                     echo "starting scan "
                     sh "${scannerHome}/bin/sonar-scanner"
                     
