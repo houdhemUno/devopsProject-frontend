@@ -47,6 +47,7 @@ pipeline {
                 withSonarQubeEnv() {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
+            }
         }
 
         // stage('Save Artifact to Nexus') {
