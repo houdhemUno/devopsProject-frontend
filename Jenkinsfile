@@ -35,7 +35,6 @@ pipeline {
         //             withSonarQubeEnv('sonarQube-sample') {
         //                 // sh 'npm install -g sonarqube-scanner'
         //                 sh 'sonar-scanner'
-                        
         //             }
         //         }
         //     }
@@ -44,7 +43,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 def scannerHome = tool 'sonarqubeScanner';
-                withSonarQubeEnv() {
+                withSonarQubeEnv(sonarqubeScanner) {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
