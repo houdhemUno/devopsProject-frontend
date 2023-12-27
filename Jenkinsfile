@@ -15,6 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout source code
+                sh 'cd /var/jenkins_home/workspace'
                 checkout scm
                 echo 'checkout suc'
             }
