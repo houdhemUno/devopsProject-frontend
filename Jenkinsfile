@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables here
         NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
-        DOCKER_REGISTRY = 'your-docker-registry'
+        DOCKER_REGISTRY = 'houdhemassoudi/devops-project-repo'
         K8S_NAMESPACE = 'your-kubernetes-namespace'
     }
     tools{
@@ -50,17 +50,17 @@ pipeline {
             }
         }
 
-        // stage('Build and Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build Docker image for the backend
-        //             sh 'docker build -t $DOCKER_REGISTRY/your-node-app:${BUILD_NUMBER} ./backend'
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t $DOCKER_REGISTRY/your-node-app:${1} ./frontend'
 
-        //             // Push Docker image to registry
-        //             sh 'docker push $DOCKER_REGISTRY/your-node-app:${BUILD_NUMBER}'
-        //         }
-        //     }
-        // }
+                    // Push Docker image to registry
+                    sh 'docker push $DOCKER_REGISTRY/your-node-app:${1}'
+                }
+            }
+        }
 
         // stage('Deploy on Kubernetes') {
         //     steps {
