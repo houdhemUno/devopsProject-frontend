@@ -12,13 +12,13 @@ pipeline {
     }
 
     stages {
-    //     stage('Checkout') {
-    //         steps {
-    //             // Checkout source code
-    //             checkout scm
-    //             echo 'checkout suc'
-    //         }
-    //     }
+        stage('Checkout') {
+            steps {
+                // Checkout source code
+                checkout scm
+                echo 'checkout suc'
+            }
+        }
 
     //     stage('Build and Test') {
     //         steps {
