@@ -11,7 +11,7 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
-        sonarqubeScanner "SonarQube-Scanner-Sample"
+        sonar "SonarQube-Scanner-Sample"
     }
 
     stages {
@@ -43,7 +43,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 script {
-                    def scannerHome = tool 'sonarqubeScanner';
+                    def scannerHome = tool 'sonar';
                     withSonarQubeEnv(sonarqubeScanner) {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
