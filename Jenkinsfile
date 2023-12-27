@@ -23,8 +23,10 @@ pipeline {
         stage('Build and Test') {
             steps {
                 // dir('devopsProject-frontend'){
-                    sh 'npm install'
-                    sh 'npm build'
+                    rm -rf /var/jenkins_home/workspace/frontend-sample-pipeline/node_modules
+                    npm install
+
+                    // sh 'npm build'
                     sh 'ls'
                 // }
             }
