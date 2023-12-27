@@ -14,9 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                 sh 'docker build '
                 // Checkout source code
-                sh 'cd /var/jenkins_home/workspace'
                 checkout scm
                 echo 'checkout suc'
             }
@@ -57,8 +55,14 @@ pipeline {
                 script {
                     // Build Docker image
                     // sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
+                    sh 'cd..'
+                    sh 'cd..'
+                    sh 'cd..'
+                    sh 'cd..'
+                    sh 'cd..'
+                    sh 'cd..'
                     
-                    sh 'docker build '
+                    sh 'docker build /var/jenkins_home/workspace/frontend-sample-pipeline@tmp/'
 
                     // Push Docker image to registry
                     sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
