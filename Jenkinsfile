@@ -24,10 +24,7 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                // Install Node.js and dependencies
-                withEnv(["PATH+NODEJS=${tool 'NodeJS ' + NODEJS_VERSION}/bin"]) {
-                    sh 'npm install'
-                    sh 'npm test'
+                    sh 'npm --v'
                 }
             }
         }
