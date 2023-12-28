@@ -25,24 +25,23 @@ pipeline {
         stage('Build and Test') {
             steps {
                     sh 'npm -v'
-                    // sh 'npm install'
                     sh 'npm run build'
                     sh 'ls'
             }
         }
 
-    //     stage('SonarQube Analysis') {
-    //         steps{
-    //             script {
-    //                 def scannerHome = tool 'sonarQube-scanner-sample'; 
-    //                 echo ' trying hard'
-    //                 withSonarQubeEnv('sonarQube-installation') {
-    //                     echo "starting scan "
-    //                     sh "${scannerHome}/bin/sonar-scanner"
-    //                 }
-    //             }
-    //         }
-    //     }
+        stage('SonarQube Analysis') {
+            steps{
+                script {
+                    def scannerHome = tool 'sonarQube-scanner-sample'; 
+                    echo ' trying hard'
+                    withSonarQubeEnv('sonarInstall') {
+                        echo "starting scan "
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
 
     //     stage('Save Artifact to Nexus') {
     //         steps {
@@ -64,9 +63,7 @@ pipeline {
 
                      withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh 'docker login -u "$username" -p "$password"'
-
-
-
+                         
                         // Push Docker image to registry
                         sh 'docker push $DOCKER_REGISTRY:1'
                     }
