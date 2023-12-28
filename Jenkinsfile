@@ -57,26 +57,26 @@ pipeline {
             steps {
                 script {
                     // sh 'tar -czf frontend-artifact.tgz dist/*'
-                    // sh "curl -v --user admin:51b5b124-b893-427d-a631-96e00804a386 --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
-                        nexusArtifactUploader(
-                            [
-                                nexusVersion: 'nexus3',
-                                protocol: 'http',
-                                nexusUrl: "${env.NEXUS_URL}",
-                                repository: "${env.NEXUS_REPO}",
-                                credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
-                                groupId: '',
-                                packaging: 'tgz',
-                                version: 'v1',
-                                artifacts: [
-                                    [
-                                        artifactId: '',
-                                        classifier: '',
-                                        file: "frontend.tgz"
-                                    ]
-                                ]
-                            ]
-                        )
+                    sh "curl -v --user admin:1a5582c1-78d5-4d95-8500-fdc9a126034a --upload-file frontend.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/front-repo/frontend.tgz"
+                        // nexusArtifactUploader(
+                        //     [
+                        //         nexusVersion: 'nexus3',
+                        //         protocol: 'http',
+                        //         nexusUrl: "${env.NEXUS_URL}",
+                        //         repository: "${env.NEXUS_REPO}",
+                        //         credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
+                        //         groupId: '',
+                        //         packaging: 'tgz',
+                        //         version: 'v1',
+                        //         artifacts: [
+                        //             [
+                        //                 artifactId: '',
+                        //                 classifier: '',
+                        //                 file: "frontend.tgz"
+                        //             ]
+                        //         ]
+                        //     ]
+                        // )
 
                     
                 }
