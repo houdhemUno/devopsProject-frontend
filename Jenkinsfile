@@ -21,13 +21,13 @@ pipeline {
             }
         }
 
-    //     stage('Build and Test') {
-    //         steps {
-    //                 sh 'npm install'
-    //                 sh 'npm run build'
-    //                 sh 'ls'
-    //         }
-    //     }
+        stage('Build and Test') {
+            steps {
+                    sh 'npm install'
+                    sh 'npm run build'
+                    sh 'ls'
+            }
+        }
 
     //     stage('SonarQube Analysis') {
     //         steps{
