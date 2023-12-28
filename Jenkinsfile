@@ -9,6 +9,7 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
+        docker "dockerInstall"
     }
 
     stages {
@@ -55,6 +56,7 @@ pipeline {
                 script {
                     // Build Docker image
                     sh 'whoami'
+                    docker.build('imageeee')
                     sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
                     sh 'ls'
                     // sh 'cd ~'
