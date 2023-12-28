@@ -62,7 +62,7 @@ pipeline {
                     sh 'docker build -t $DOCKER_REGISTRY/frontend:1 .'
                     sh 'ls'
 
-                     withCredentials([usernamePassword(credentialsId: DOCKER_CRED, passwordVariable: 'password', usernameVariable: 'username')]) {
+                     withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh 'docker login -u "$username" -p "$password"'
 
 
