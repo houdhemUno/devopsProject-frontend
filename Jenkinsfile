@@ -11,7 +11,7 @@ pipeline {
     tools{
         nodejs "NodeJsInstallation"
         dockerTool "dockerInstall"
-        sonar "SonarQubeScannerInstall"
+    
     }
 
     stages {
@@ -35,7 +35,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps{
                 script {
-                    def scannerHome = tool 'sonarQube-scanner-sample'; 
+                    def scannerHome = tool 'SonarQubeScannerInstall'; 
                     echo ' trying hard'
                     withSonarQubeEnv('sonarInstall') {
                         echo "starting scan "
