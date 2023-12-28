@@ -59,7 +59,7 @@ pipeline {
                     // Build Docker image
                     sh 'whoami'
                     sh 'docker version'
-                    sh 'docker build -t $DOCKER_REGISTRY/frontend:1 .'
+                    sh 'docker build -t $DOCKER_REGISTRY:frontend:1 .'
                     sh 'ls'
 
                      withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'password', usernameVariable: 'username')]) {
@@ -68,7 +68,7 @@ pipeline {
 
 
                         // Push Docker image to registry
-                        sh 'docker push $DOCKER_REGISTRY/frontend:1'
+                        sh 'docker push $DOCKER_REGISTRY:frontend:1'
                     }
                 }
             }
