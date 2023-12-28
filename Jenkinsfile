@@ -11,6 +11,7 @@ pipeline {
     tools{
         nodejs "NodeJsInstallation"
         dockerTool "dockerInstall"
+        sonar "SonarQubeScannerInstall"
     }
 
     stages {
