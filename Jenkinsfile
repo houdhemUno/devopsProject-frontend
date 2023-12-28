@@ -72,7 +72,7 @@ pipeline {
                                     [
                                         artifactId: 
                                         'front', classifier: '',
-                                        file: "front-1.0.0.tgz"
+                                        file: "vite-project-0.0.0.tgz"
                                     ]
                                 ]
                             ]
