@@ -9,7 +9,7 @@ pipeline {
     }
     tools{
         nodejs "NodeJsInstallation"
-        docker "dockerInstall"
+        dockerTool "dockerInstall"
     }
 
     stages {
