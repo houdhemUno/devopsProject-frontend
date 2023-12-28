@@ -64,7 +64,7 @@ pipeline {
                                 nexusUrl: "${env.NEXUS_URL}",
                                 repository: "${env.NEXUS_REPO}",
                                 credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
-                                groupId: 'com.houdhem',
+                                groupId: '',
                                 packaging: 'tgz',
                                 version: '1.0.0',
                                 artifacts: [
