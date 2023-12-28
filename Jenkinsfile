@@ -55,21 +55,13 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    // withCredentials([string(credentialsId: 'globalCred', variable: 'PWD')]) {
-                    //     sh 'echo ${PWD} | su '
-                    // }
-
                     // Build Docker image
                     sh 'whoami'
-                    // docker.build('imageeee')
-                    sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
+                    sh 'docker build -t frontendImage:1 .'
                     sh 'ls'
-                    // sh 'cd ~'
                     
-                    // sh 'docker build /var/jenkins_home/workspace/frontend-sample-pipeline@tmp/'
-
                     // Push Docker image to registry
-                    sh 'docker push $DOCKER_REGISTRY/frontend:${1}'
+                    sh 'docker push $DOCKER_REGISTRY/frontend:1'
                 }
             }
         }
