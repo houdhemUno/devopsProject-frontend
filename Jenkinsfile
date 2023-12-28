@@ -36,6 +36,7 @@ pipeline {
                     sh 'npm pack'
                     //Check folder
                     sh 'ls'
+                sh 'mv frontend-0.0.0.tgz frontend.tgz' 
             }
         }
 
@@ -66,12 +67,12 @@ pipeline {
                                 credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
                                 groupId: '',
                                 packaging: 'tgz',
-                                version: '',
+                                version: 'v1',
                                 artifacts: [
                                     [
                                         artifactId: '',
                                         classifier: '',
-                                        file: "frontend-0.0.0.tgz"
+                                        file: "frontend.tgz"
                                     ]
                                 ]
                             ]
