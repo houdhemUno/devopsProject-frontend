@@ -66,7 +66,7 @@ pipeline {
                                 credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
                                 groupId: '',
                                 packaging: 'tgz',
-                                version: '1',
+                                version: '',
                                 artifacts: [
                                     [
                                         artifactId: '',
