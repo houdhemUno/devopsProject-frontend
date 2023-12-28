@@ -3,7 +3,9 @@ pipeline {
 
     environment {
         // Define environment variables here
-        NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
+        NEXUS_URL = 'iac-nexus-1:8081'
+        NEXUS_REPO = 'front-repo'
+        NEXUS_CREDENTIALS_ID = 'nexus-credentials'
         DOCKER_REGISTRY = 'houdhemassoudi/devops-front'
         DOCKER_CRED = credentials('docker-cred')
         K8S_NAMESPACE = 'your-kubernetes-namespace'
@@ -26,8 +28,13 @@ pipeline {
         stage('Build and Test') {
             steps {
                     sh 'npm -v'
+                    //Install the Node.js application
                     sh 'npm install'
+                    //Build the Node.js application
                     sh 'npm run build'
+                    //Package the Node.js application
+                    sh 'npm pack'
+                    //Check folder
                     sh 'ls'
             }
         }
@@ -45,14 +52,36 @@ pipeline {
             }
         }
 
-    //     stage('Save Artifact to Nexus') {
-    //         steps {
-    //             script {
-    //                 sh 'tar -czf frontend-artifact.tgz dist/*'
-    //                 sh "curl -v --user admin:51b5b124-b893-427d-a631-96e00804a386 --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
-    //             }
-    //         }
-    //     }
+        stage('Save Artifact to Nexus') {
+            steps {
+                script {
+                    // sh 'tar -czf frontend-artifact.tgz dist/*'
+                    // sh "curl -v --user admin:51b5b124-b893-427d-a631-96e00804a386 --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
+                        nexusArtifactUploader(
+                            [
+                                nexusVersion: 'nexus3',
+                                protocol: 'http',
+                                nexusUrl: "${env.NEXUS_URL}",
+                                repository: "${env.NEXUS_REPO}",
+                                credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
+                                groupId: 'com.houdhem',
+                                version: '1.0.0',
+                                packaging: 'tgz',
+                                version: '1.0.0',
+                                artifacts: [
+                                    [
+                                        artifactId: 
+                                        'front', classifier: '',
+                                        file: "front-1.0.0.tgz"
+                                    ]
+                                ]
+                            ]
+                        )
+
+                    
+                }
+            }
+        }
 
         stage('Build and Push Docker Image') {
             steps {
