@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'globalCred', variable: 'PWD')]) {
-                        sh 'echo ${PWD} | su -E -S'
+                        sh 'echo ${PWD} | su -S -E'
                     }
 
                     // Build Docker image
