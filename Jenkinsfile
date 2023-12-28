@@ -61,7 +61,7 @@ pipeline {
 
                     // Build Docker image
                     sh 'whoami'
-                    docker.build('imageeee')
+                    // docker.build('imageeee')
                     sh 'docker build -t $DOCKER_REGISTRY/frontend:${1} ./frontend'
                     sh 'ls'
                     // sh 'cd ~'
