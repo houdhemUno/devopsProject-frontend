@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Define environment variables here
         NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
-        DOCKER_REGISTRY = 'houdhemassoudi/devops-project-repo'
+        DOCKER_REGISTRY = 'houdhemassoudi/devops-front'
         DOCKER_CRED = credentials('docker-cred')
         K8S_NAMESPACE = 'your-kubernetes-namespace'
     }
@@ -59,7 +59,7 @@ pipeline {
                     // Build Docker image
                     sh 'whoami'
                     sh 'docker version'
-                    sh 'docker build -t $DOCKER_REGISTRY:frontend:1 .'
+                    sh 'docker build -t $DOCKER_REGISTRY:1 .'
                     sh 'ls'
 
                      withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'password', usernameVariable: 'username')]) {
@@ -68,7 +68,7 @@ pipeline {
 
 
                         // Push Docker image to registry
-                        sh 'docker push $DOCKER_REGISTRY:frontend:1'
+                        sh 'docker push $DOCKER_REGISTRY:1'
                     }
                 }
             }
