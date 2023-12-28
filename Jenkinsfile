@@ -57,6 +57,7 @@ pipeline {
                 script {
                     // Build Docker image
                     sh 'whoami'
+                    sh 'docker version'
                     sh 'docker build -t frontend:1 .'
                     sh 'ls'
                     
