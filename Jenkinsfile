@@ -58,7 +58,7 @@ pipeline {
                     // Build Docker image
                     sh 'whoami'
                     sh 'docker version'
-                    sh 'docker build -t frontend:1 .'
+                    sh 'docker build -t $DOCKER_REGISTRY/frontend:1 .'
                     sh 'ls'
                     
                     // Push Docker image to registry
