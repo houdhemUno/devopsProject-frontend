@@ -23,6 +23,7 @@ pipeline {
 
         stage('Build and Test') {
             steps {
+                    sh 'npm -v'
                     sh 'npm install'
                     sh 'npm run build'
                     sh 'ls'
