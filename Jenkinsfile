@@ -57,7 +57,7 @@ pipeline {
                 script {
                     // Build Docker image
                     sh 'whoami'
-                    sh 'docker build -t frontend-image:1 .'
+                    sh 'docker build -t frontend:1 .'
                     sh 'ls'
                     
                     // Push Docker image to registry
