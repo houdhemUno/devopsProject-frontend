@@ -65,13 +65,12 @@ pipeline {
                                 repository: "${env.NEXUS_REPO}",
                                 credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
                                 groupId: 'com.houdhem',
-                                version: '1.0.0',
                                 packaging: 'tgz',
                                 version: '1.0.0',
                                 artifacts: [
                                     [
-                                        artifactId: 
-                                        'front', classifier: '',
+                                        artifactId: '',
+                                        classifier: '',
                                         file: "vite-project-0.0.0.tgz"
                                     ]
                                 ]
