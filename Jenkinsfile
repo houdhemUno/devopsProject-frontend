@@ -54,6 +54,10 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
+                    withCredentials([string(credentialsId: 'globalCred', variable: 'PWD')]) {
+                        sh 'echo ${PWD} | su -E -S'
+                    }
+
                     // Build Docker image
                     sh 'whoami'
                     docker.build('imageeee')
