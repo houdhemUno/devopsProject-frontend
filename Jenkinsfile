@@ -8,7 +8,6 @@ pipeline {
         NEXUS_CREDENTIALS_ID = 'nexus-credentials'
         DOCKER_REGISTRY = 'houdhemassoudi/devops-front'
         DOCKER_CRED = credentials('docker-cred')
-        K8S_NAMESPACE = 'your-kubernetes-namespace'
     }
     tools{
         nodejs "NodeJsInstallation"
@@ -36,7 +35,7 @@ pipeline {
                     sh 'npm pack'
                     //Check folder
                     sh 'ls'
-                sh 'mv frontend-0.0.0.tgz frontend.tgz' 
+                    sh 'mv frontend-0.0.0.tgz frontend.tgz' 
             }
         }
 
@@ -102,16 +101,7 @@ pipeline {
             }
         }
 
-        // stage('Deploy on Kubernetes') {
-        //     steps {
-        //         script {
-        //             // Assuming you have Kubernetes credentials configured in Jenkins
-        //             withKubeConfig([credentialsId: 'your-kube-config-credentials', serverUrl: 'https://your-kube-api-server']) {
-        //                 sh "kubectl apply -f kubernetes-deployment.yaml --namespace=${K8S_NAMESPACE}"
-        //             }
-        //         }
-        //     }
-        // }
+        
     }
 
     post {
