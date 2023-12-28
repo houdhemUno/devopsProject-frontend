@@ -3,12 +3,17 @@ pipeline {
 
     environment {
         // Define environment variables here
-        NEXUS_REPO = 'http://your-nexus-repo/repository/npm-releases/'
-        DOCKER_REGISTRY = 'your-docker-registry'
+        NEXUS_URL = 'iac-nexus-1:8081'
+        NEXUS_REPO = 'front-repo'
+        NEXUS_CREDENTIALS_ID = 'nexus-credentials'
+        DOCKER_REGISTRY = 'houdhemassoudi/devops-front'
+        DOCKER_CRED = credentials('docker-cred')
         K8S_NAMESPACE = 'your-kubernetes-namespace'
     }
     tools{
         nodejs "NodeJsInstallation"
+        dockerTool "dockerInstall"
+    
     }
 
     stages {
@@ -22,19 +27,24 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                dir('devopsProject-frontend'){
+                    sh 'npm -v'
+                    //Install the Node.js application
                     sh 'npm install'
-                    sh 'npm build'
-                }
+                    //Build the Node.js application
+                    sh 'npm run build'
+                    //Package the Node.js application
+                    sh 'npm pack'
+                    //Check folder
+                    sh 'ls'
             }
         }
 
         stage('SonarQube Analysis') {
             steps{
                 script {
-                    def scannerHome = tool 'sonarQube-scanner-sample'; 
+                    def scannerHome = tool 'SonarQubeScannerInstall'; 
                     echo ' trying hard'
-                    withSonarQubeEnv('sonarQube-installation') {
+                    withSonarQubeEnv('sonarInstall') {
                         echo "starting scan "
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
@@ -45,23 +55,51 @@ pipeline {
         stage('Save Artifact to Nexus') {
             steps {
                 script {
-                    sh 'tar -czf frontend-artifact.tgz build/*'
-                    sh "curl -v --user admin:9e4b183d-303f-4bda-9706-121c900c117b --upload-file frontend-artifact.tgz http://iac-nexus-1:8081/frontend-artifact.tgz"
+                    // sh 'tar -czf frontend-artifact.tgz dist/*'
+                    // sh "curl -v --user admin:51b5b124-b893-427d-a631-96e00804a386 --upload-file frontend-artifact.tgz -H 'Content-Type: application/octet-stream' http://iac-nexus-1:8081/repository/webAppArtifact/frontend-artifact-1.tgz"
+                        nexusArtifactUploader(
+                            [
+                                nexusVersion: 'nexus3',
+                                protocol: 'http',
+                                nexusUrl: "${env.NEXUS_URL}",
+                                repository: "${env.NEXUS_REPO}",
+                                credentialsId: "${env.NEXUS_CREDENTIALS_ID}",
+                                groupId: '',
+                                packaging: 'tgz',
+                                version: '1',
+                                artifacts: [
+                                    [
+                                        artifactId: '',
+                                        classifier: '',
+                                        file: "vite-project-0.0.0.tgz"
+                                    ]
+                                ]
+                            ]
+                        )
+
+                    
                 }
             }
         }
 
-        // stage('Build and Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build Docker image for the backend
-        //             sh 'docker build -t $DOCKER_REGISTRY/your-node-app:${BUILD_NUMBER} ./backend'
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'whoami'
+                    sh 'docker version'
+                    sh 'docker build -t $DOCKER_REGISTRY:1 .'
+                    sh 'ls'
 
-        //             // Push Docker image to registry
-        //             sh 'docker push $DOCKER_REGISTRY/your-node-app:${BUILD_NUMBER}'
-        //         }
-        //     }
-        // }
+                     withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'password', usernameVariable: 'username')]) {
+                        sh 'docker login -u "$username" -p "$password"'
+                         
+                        // Push Docker image to registry
+                        sh 'docker push $DOCKER_REGISTRY:1'
+                    }
+                }
+            }
+        }
 
         // stage('Deploy on Kubernetes') {
         //     steps {
